@@ -2,3 +2,7 @@
 Library/
 Packages/packages-lock.json
 Logs/
+.idea/
+*.csproj
+Temp/
+obj/
