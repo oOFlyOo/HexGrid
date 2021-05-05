@@ -180,6 +180,8 @@ namespace Hex.Editor
             var gridData = _grid.Data;
             brush.renderer.ShowHex(worldPos.PixelToHex(gridData.size), gridPos, gridData.size, _grid.HexMat);
             
+            Handles.Label(worldPos, worldPos.ToString());
+            
             HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
 
             if (curEvent.type == EventType.MouseUp)
