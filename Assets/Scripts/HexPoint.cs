@@ -35,4 +35,9 @@ public struct HexPoint
     {
         return new HexPoint(pointA.x - pointB.x, pointA.z - pointB.z, pointA.y - pointB.y);
     }
+
+    public override string ToString()
+    {
+        return ((Vector3) this).ToString();
+    }
 }

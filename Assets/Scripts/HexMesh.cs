@@ -9,7 +9,7 @@ public static class HexMesh
 
     public static Mesh GetMesh(float size)
     {
-        if (!_instanceMeshes.TryGetValue(size, out Mesh mesh))
+        if (!_instanceMeshes.TryGetValue(size, out Mesh mesh) || mesh == null)
         {
             mesh = CreateMesh(size);
             _instanceMeshes[size] = mesh;

@@ -31,6 +31,13 @@ namespace Hex
             return $"({x}, {z})";
         }
         
+        public string ToOffsetString()
+        {
+            HexMetrics.AxialToOffset(x, z, out int row, out int col);
+            
+            return $"({col}, {row})";
+        }
+        
         public static HexCoordinates operator+(HexCoordinates hexA, HexCoordinates hexB)
         {
             return new HexCoordinates(hexA.x + hexB.x, hexA.z + hexB.z);

@@ -70,6 +70,18 @@ namespace Hex
             return Sqrt3 * size;
         }
 
+        public static void OffsetToAxial(int row, int col, out int x, out int z)
+        {
+            x = col - (row - (row & 1)) / 2;
+            z = row;
+        }
+
+        public static void AxialToOffset(int x, int z, out int row, out int col)
+        {
+            row = z;
+            col = x + (z - (z & 1)) / 2;
+        }
+
         public static HexPoint HexToPixel(this HexCoordinates hex, float size)
         {
             var x = hex.X * OuterToDoubleInner(size) + hex.Z * OuterToInner(size);

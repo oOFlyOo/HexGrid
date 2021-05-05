@@ -1,0 +1,147 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c4e6787ed14bd09f0014eee9190928, type: 3}
+  m_Name: SampleScene_data
+  m_EditorClassIdentifier: 
+  width: 110
+  height: 100
+  size: 10
+  halfRowGridNum: 2
+  halfColGridNum: 2
+  rowGridNum: 5
+  colGridNum: 5
+  hexDatas:
+  - hex:
+      x: -1
+      z: -2
+    path:
+      pathType: 0
+  - hex:
+      x: 0
+      z: -2
+    path:
+      pathType: 0
+  - hex:
+      x: 1
+      z: -2
+    path:
+      pathType: 0
+  - hex:
+      x: 2
+      z: -2
+    path:
+      pathType: 0
+  - hex:
+      x: 3
+      z: -2
+    path:
+      pathType: 0
+  - hex:
+      x: -1
+      z: -1
+    path:
+      pathType: 0
+  - hex:
+      x: 0
+      z: -1
+    path:
+      pathType: 0
+  - hex:
+      x: 1
+      z: -1
+    path:
+      pathType: 1
+  - hex:
+      x: 2
+      z: -1
+    path:
+      pathType: 0
+  - hex:
+      x: 3
+      z: -1
+    path:
+      pathType: 0
+  - hex:
+      x: -2
+      z: 0
+    path:
+      pathType: 1
+  - hex:
+      x: -1
+      z: 0
+    path:
+      pathType: 0
+  - hex:
+      x: 0
+      z: 0
+    path:
+      pathType: 0
+  - hex:
+      x: 1
+      z: 0
+    path:
+      pathType: 0
+  - hex:
+      x: 2
+      z: 0
+    path:
+      pathType: 0
+  - hex:
+      x: -2
+      z: 1
+    path:
+      pathType: 0
+  - hex:
+      x: -1
+      z: 1
+    path:
+      pathType: 0
+  - hex:
+      x: 0
+      z: 1
+    path:
+      pathType: 0
+  - hex:
+      x: 1
+      z: 1
+    path:
+      pathType: 0
+  - hex:
+      x: 2
+      z: 1
+    path:
+      pathType: 0
+  - hex:
+      x: -3
+      z: 2
+    path:
+      pathType: 0
+  - hex:
+      x: -2
+      z: 2
+    path:
+      pathType: 0
+  - hex:
+      x: -1
+      z: 2
+    path:
+      pathType: 0
+  - hex:
+      x: 0
+      z: 2
+    path:
+      pathType: 0
+  - hex:
+      x: 1
+      z: 2
+    path:
+      pathType: 0

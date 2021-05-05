@@ -1,4 +1,4 @@
-﻿Shader "Hex/HexRender"
+﻿Shader "Hex/HexRenderer"
 {
     Properties
     {
