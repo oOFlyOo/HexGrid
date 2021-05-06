@@ -10,6 +10,7 @@ namespace Hex.Brush
 
         public PathBrush()
         {
+            brushType = BrushData.BrushType.Path;
             renderer.minSize = 0;
         }
     }

@@ -7,6 +7,12 @@ namespace Hex.Brush
 {
     public class BrushData : ScriptableObject
     {
+        public enum BrushType
+        {
+            None,
+            Path,
+        }
+        
         public List<PathBrush> pathBrushes;
 
         public PathBrush GetPathBrushByPathType(PathFeature.PathType type)

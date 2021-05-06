@@ -14,9 +14,11 @@ namespace Hex.Editor
     [CustomEditor(typeof(HexGrid))]
     public class HexGridEditor : UnityEditor.Editor
     {
+        private static BrushData.BrushType _brushType = BrushData.BrushType.None;
+        private static BrushFeature _brushFeature = new BrushFeature();
+
         private HexGrid _grid;
         private int _curBrush = 0;
-        private BrushFeature _brushFeature = new BrushFeature();
 
         private void OnEnable()
         {
@@ -49,7 +51,6 @@ namespace Hex.Editor
                 EditorUIHelper.PropertyField(serializedObject, "Renderer", "网格颜色");
                 _grid.ShowScope = EditorUIHelper.Toggle("显示边界", _grid.ShowScope);
                 _grid.ShowGrid = EditorUIHelper.Toggle("显示网格", _grid.ShowGrid);
-                _grid.LockSelection = EditorUIHelper.Toggle("锁定操作", _grid.LockSelection);
             }
 
             EditorUIHelper.Space();
@@ -63,13 +64,17 @@ namespace Hex.Editor
             else
             {
                 EditorUIHelper.Button("编辑笔刷", () => BrushDataEditorWindow.Open(brushData));
+                
+                EditorUIHelper.Space();
+                _brushType = EditorUIHelper.EnumPopup<BrushData.BrushType>(_brushType, "笔刷类型");
+
                 if (brushData.pathBrushes.Count > 0)
                 {
                     _curBrush = EditorUIHelper.Popup("刷路", _curBrush,
                         brushData.pathBrushes.Select(brush => brush.name).ToArray());
                 }
 
-                _brushFeature.brushType = EditorUIHelper.EnumPopup<BrushFeature.BrushType>(_brushFeature.brushType);
+                _brushFeature.brushOptionType = EditorUIHelper.EnumPopup<BrushFeature.BrushOptionType>(_brushFeature.brushOptionType);
             }
 
             if (EditorUIHelper.Changed)
@@ -171,6 +176,11 @@ namespace Hex.Editor
         
         private void CheckBrush()
         {
+            if (_brushType == BrushData.BrushType.None)
+            {
+                return;
+            }
+            
             if (_grid.Data == null)
             {
                 return;
@@ -211,16 +221,12 @@ namespace Hex.Editor
                     {
                         data.path = brush.path;
                     }
-                    // HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
                     // curEvent.Use();
                 }
             }
 
-            if (_grid.LockSelection)
-            {
-                HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
-                // GUIUtility.hotControl = GUIUtility.GetControlID(FocusType.Passive);
-            }
+            HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
+            // GUIUtility.hotControl = GUIUtility.GetControlID(FocusType.Passive);
         }
 
         private void UpdateSceneView()

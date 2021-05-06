@@ -15,14 +15,14 @@ namespace Hex
     {
         public bool ShowScope = true;
         public bool ShowGrid = true;
-        public bool LockSelection = false;
-        
+
         public Material HexMat;
         public Color BorderColor = Color.green;
         public HexRenderer Renderer = new HexRenderer();
         
         public HexGridData Data;
         public BrushData BrushData;
+        
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
