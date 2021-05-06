@@ -1,6 +1,7 @@
 ﻿using System;
 using Hex.Brush;
 using UnityEditor;
+using UnityEngine;
 
 namespace Hex.Editor
 {
@@ -14,6 +15,11 @@ namespace Hex.Editor
             var win = GetWindow<BrushDataEditorWindow>(true, "BrushData");
             win._brushData = brushData;
             win._brushEditor = UnityEditor.Editor.CreateEditor(brushData);
+        }
+
+        private void OnDestroy()
+        {
+            DestroyImmediate(_brushEditor);
         }
 
 

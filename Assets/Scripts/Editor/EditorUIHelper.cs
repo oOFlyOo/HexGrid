@@ -321,6 +321,11 @@ public static class EditorUIHelper
         GUI.backgroundColor = Color.white;
     }
 
+    public static Color ColorField(Color color, string label = null)
+    {
+        return EditorGUILayout.ColorField(label, color);
+    }
+
 
     public static void TitleField(string title, string label = null)
     {

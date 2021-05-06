@@ -12,136 +12,104 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61c4e6787ed14bd09f0014eee9190928, type: 3}
   m_Name: SampleScene_data
   m_EditorClassIdentifier: 
-  width: 110
+  width: 100
   height: 100
   size: 10
   halfRowGridNum: 2
-  halfColGridNum: 2
+  halfColGridNum: 1
   rowGridNum: 5
-  colGridNum: 5
+  colGridNum: 3
   hexDatas:
   - hex:
-      x: -1
-      z: -2
-    path:
-      pathType: 1
-  - hex:
       x: 0
       z: -2
     path:
-      pathType: 1
+      id: 0
   - hex:
       x: 1
       z: -2
     path:
-      pathType: 1
+      id: 1
   - hex:
       x: 2
       z: -2
     path:
-      pathType: 0
-  - hex:
-      x: 3
-      z: -2
-    path:
-      pathType: 0
-  - hex:
-      x: -1
-      z: -1
-    path:
-      pathType: 1
+      id: 1
   - hex:
       x: 0
       z: -1
     path:
-      pathType: 1
+      id: 1
   - hex:
       x: 1
       z: -1
     path:
-      pathType: 1
+      id: 2
   - hex:
       x: 2
       z: -1
     path:
-      pathType: 1
-  - hex:
-      x: 3
-      z: -1
-    path:
-      pathType: 0
-  - hex:
-      x: -2
-      z: 0
-    path:
-      pathType: 1
+      id: 0
   - hex:
       x: -1
       z: 0
     path:
-      pathType: 1
+      id: 0
   - hex:
       x: 0
       z: 0
     path:
-      pathType: 1
+      id: 0
   - hex:
       x: 1
       z: 0
     path:
-      pathType: 1
-  - hex:
-      x: 2
-      z: 0
-    path:
-      pathType: 1
-  - hex:
-      x: -2
-      z: 1
-    path:
-      pathType: 1
+      id: 0
   - hex:
       x: -1
       z: 1
     path:
-      pathType: 0
+      id: 0
   - hex:
       x: 0
       z: 1
     path:
-      pathType: 1
+      id: 3
   - hex:
       x: 1
       z: 1
     path:
-      pathType: 0
-  - hex:
-      x: 2
-      z: 1
-    path:
-      pathType: 0
-  - hex:
-      x: -3
-      z: 2
-    path:
-      pathType: 0
+      id: 3
   - hex:
       x: -2
       z: 2
     path:
-      pathType: 1
+      id: 0
   - hex:
       x: -1
       z: 2
     path:
-      pathType: 0
+      id: 0
   - hex:
       x: 0
       z: 2
     path:
-      pathType: 1
-  - hex:
-      x: 1
-      z: 2
-    path:
-      pathType: 0
+      id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: PathFeature, ns: Hex.Data, asm: Assembly-CSharp}
+      data:
+        pathType: 0
+    00000001:
+      type: {class: PathFeature, ns: Hex.Data, asm: Assembly-CSharp}
+      data:
+        pathType: 0
+    00000002:
+      type: {class: PathFeature, ns: Hex.Data, asm: Assembly-CSharp}
+      data:
+        pathType: 0
+    00000003:
+      type: {class: PathFeature, ns: Hex.Data, asm: Assembly-CSharp}
+      data:
+        pathType: 0

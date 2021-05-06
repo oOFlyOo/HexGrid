@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using Hex.Brush;
 using Hex.Data;
 using UnityEditor;
+using UnityEditor.Presets;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -29,8 +30,6 @@ namespace Hex.Editor
                 LoadMaterial();
             }
             _grid.HexMat = EditorUIHelper.ObjectField<Material>(_grid.HexMat, "材质球");
-
-            EditorUIHelper.PropertyField(serializedObject, "Renderer", "网格颜色");
             
             _grid.Data = EditorUIHelper.ObjectField<HexGridData>(_grid.Data, "数据");
             var gridData = _grid.Data;
@@ -44,10 +43,13 @@ namespace Hex.Editor
                 gridData.width = EditorUIHelper.Slider("宽度", gridData.width, 0, 1000);
                 gridData.height = EditorUIHelper.Slider("高度", gridData.height, 0, 1000);
                 gridData.size = EditorUIHelper.Slider("六边形边长", gridData.size, 0, 10);
-                
-                _grid.ShowScope = EditorUIHelper.Toggle("显示边界", _grid.ShowScope);
-            
                 EditorUIHelper.Button("更新HexGrid", UpdateHexGrid);
+
+                _grid.BorderColor = EditorUIHelper.ColorField(_grid.BorderColor, "边界颜色");
+                EditorUIHelper.PropertyField(serializedObject, "Renderer", "网格颜色");
+                _grid.ShowScope = EditorUIHelper.Toggle("显示边界", _grid.ShowScope);
+                _grid.ShowGrid = EditorUIHelper.Toggle("显示网格", _grid.ShowGrid);
+                _grid.LockSelection = EditorUIHelper.Toggle("锁定操作", _grid.LockSelection);
             }
 
             EditorUIHelper.Space();
@@ -70,11 +72,14 @@ namespace Hex.Editor
                 _brushFeature.brushType = EditorUIHelper.EnumPopup<BrushFeature.BrushType>(_brushFeature.brushType);
             }
 
-            if (GUI.changed)
+            if (EditorUIHelper.Changed)
             {
                 serializedObject.ApplyModifiedProperties();
                 EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-                EditorUtility.SetDirty(gridData);
+                if (gridData != null)
+                {
+                    EditorUtility.SetDirty(gridData);
+                }
             }
         }
 
@@ -133,6 +138,12 @@ namespace Hex.Editor
             if (data == null)
             {
                 data = CreateInstance<BrushData>();
+
+                var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/BrushData.preset");
+                if (preset != null)
+                {
+                    preset.ApplyTo(data);
+                }
                 AssetDatabase.CreateAsset(data, path);
             }
             
@@ -147,12 +158,17 @@ namespace Hex.Editor
             _grid.Data.CreateHexDatas();
         }
 
-        private void OnSceneGUI()
+        private void OnPreSceneGUI()
         {
-            ShowFeature();
             CheckBrush();
         }
 
+        private void OnSceneGUI()
+        {
+            ShowFeature();
+            // CheckBrush();
+        }
+        
         private void CheckBrush()
         {
             if (_grid.Data == null)
@@ -161,7 +177,7 @@ namespace Hex.Editor
             }
             
             var brushData = _grid.BrushData;
-            if (brushData == null || brushData.pathBrushes.Count == 0)
+            if (brushData == null || !brushData.HasPathBrushes())
             {
                 return;
             }
@@ -181,19 +197,29 @@ namespace Hex.Editor
             brush.renderer.ShowHex(worldPos.PixelToHex(gridData.size), gridPos, gridData.size, _grid.HexMat);
             UpdateSceneView();
             
-            HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
+            // HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
 
             if (curEvent.type == EventType.MouseUp)
             {
-
                 var hex = worldPos.PixelToHex(gridData.size);
                 HexMetrics.AxialToOffset(hex.X, hex.Z, out int row, out int col);
                 gridData.RowColToIndex(row, col, out int rowIndex, out int colIndex);
                 var data = gridData[rowIndex, colIndex];
                 if (data != null)
                 {
-                    data.path.pathType = brush.path.pathType;
+                    if (data.path != brush.path)
+                    {
+                        data.path = brush.path;
+                    }
+                    // HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
+                    // curEvent.Use();
                 }
+            }
+
+            if (_grid.LockSelection)
+            {
+                HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
+                // GUIUtility.hotControl = GUIUtility.GetControlID(FocusType.Passive);
             }
         }
 
@@ -205,13 +231,13 @@ namespace Hex.Editor
 
         private void ShowFeature()
         {
-            if (_grid.Data == null)
+            if (_grid.Data == null || !_grid.Data.HasHexDatas())
             {
                 return;
             }
             
             var brushData = _grid.BrushData;
-            if (brushData == null || brushData.pathBrushes.Count == 0)
+            if (brushData == null || !brushData.HasPathBrushes())
             {
                 return;
             }

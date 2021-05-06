@@ -20,17 +20,21 @@ namespace Hex.Data
         {
             get
             {
-                var index = rowIndex * colGridNum + colIndex;
-                if (index < 0 || index >= hexDatas.Length)
+                if (!ContainsIndex(rowIndex, colIndex))
                 {
                     return null;
                 }
                 
-                return hexDatas[index];
+                return hexDatas[IndexToArrayIndex(rowIndex, colIndex)];
             }
             set
             {
-                hexDatas[rowIndex * colGridNum + colIndex] = value;
+                if (!ContainsIndex(rowIndex, colIndex))
+                {
+                    return;
+                }
+                
+                hexDatas[IndexToArrayIndex(rowIndex, colIndex)] = value;
             }
         }
 
@@ -72,6 +76,33 @@ namespace Hex.Data
             col = colIndex - halfColGridNum;
         }
 
+        public int IndexToArrayIndex(int rowIndex, int colIndex)
+        {
+            var index = rowIndex * colGridNum + colIndex;
+
+            return index;
+        }
+
+        public bool ContainsIndex(int rowIndex, int colIndex)
+        {
+            if (rowIndex < 0 || rowIndex >= rowGridNum)
+            {
+                return false;
+            }
+            
+            if (colIndex < 0 || colIndex >= colGridNum)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool HasHexDatas()
+        {
+            return hexDatas != null && hexDatas.Length > 0;
+        }
+        
         public void CreateHexDatas()
         {
             if (rowGridNum <= 0 || colGridNum <= 0)

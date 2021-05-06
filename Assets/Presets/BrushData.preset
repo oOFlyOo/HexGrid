@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BrushData
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 0a0ac86e290b4f17ac8882f9a6ecb0c6,
+      type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[0].name
+    value: Pass
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[0].renderer.color.r
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[0].renderer.color.g
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[0].renderer.color.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[0].renderer.color.a
+    value: 0.39607844
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[0].renderer.minSize
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[0].renderer.maxSize
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[0].renderer.pointInternal
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[0].path.pathType
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[1].name
+    value: Obstacle
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[1].renderer.color.r
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[1].renderer.color.g
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[1].renderer.color.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[1].renderer.color.a
+    value: 0.39215687
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[1].renderer.minSize
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[1].renderer.maxSize
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[1].renderer.pointInternal
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: pathBrushes.Array.data[1].path.pathType
+    value: 1
+    objectReference: {fileID: 0}

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Hex.Data
 {
@@ -6,6 +7,7 @@ namespace Hex.Data
     public class HexData
     {
         public HexCoordinates hex;
+        [SerializeReference]
         public PathFeature path;
 
         public static HexData CreateFromHex(HexCoordinates hex)

@@ -47,5 +47,25 @@ namespace Hex
         {
             return new HexCoordinates(hexA.x - hexB.x, hexA.z - hexB.z);
         }
+        
+        public static bool operator==(HexCoordinates hexA, HexCoordinates hexB)
+        {
+            return hexA.x == hexB.x && hexA.z == hexB.z;
+        }
+        
+        public static bool operator!=(HexCoordinates hexA, HexCoordinates hexB)
+        {
+            return hexA.x != hexB.x || hexA.z != hexB.z;
+        }
+
+        public override int GetHashCode()
+        {
+            return x ^ z << 2;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return (obj is HexCoordinates) && this == (HexCoordinates) obj;
+        }
     }
 }

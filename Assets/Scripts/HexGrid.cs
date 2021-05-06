@@ -14,7 +14,11 @@ namespace Hex
     public class HexGrid : MonoBehaviour
     {
         public bool ShowScope = true;
+        public bool ShowGrid = true;
+        public bool LockSelection = false;
+        
         public Material HexMat;
+        public Color BorderColor = Color.green;
         public HexRenderer Renderer = new HexRenderer();
         
         public HexGridData Data;
@@ -34,10 +38,10 @@ namespace Hex
                     poses[2] = new Vector3(-Data.width * 0.5f, 0,  Data.height * 0.5f) + pos;
                     poses[3] = new Vector3(Data.width * 0.5f, 0, Data.height * 0.5f) + pos;
 
-                    Handles.DrawSolidRectangleWithOutline(poses, Color.clear, Color.green);
+                    Handles.DrawSolidRectangleWithOutline(poses, Color.clear, BorderColor);
                 }
 
-                if (HexMat != null && Data.hexDatas != null)
+                if (ShowGrid && HexMat != null && Data.hexDatas != null)
                 {
                     foreach (var data in Data.hexDatas)
                     {
