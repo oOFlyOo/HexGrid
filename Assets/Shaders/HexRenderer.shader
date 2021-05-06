@@ -59,7 +59,9 @@
                 fixed4 col = _Color;
                 
                 half maxSize = max(_MaxSize, _MinSize);
+                maxSize = saturate(maxSize);
                 half minSize = min(_MaxSize, _MinSize);
+                minSize = saturate(minSize);
                 minSize = min(minSize, maxSize - 0.01);
                 minSize = max(0, minSize);
                 maxSize = max(maxSize, minSize + 0.01);
