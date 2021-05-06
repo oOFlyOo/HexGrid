@@ -15,7 +15,7 @@ MonoBehaviour:
   pathBrushes:
   - name: Pass
     renderer:
-      color: {r: 0, g: 1, b: 0, a: 0}
+      color: {r: 0, g: 1, b: 0, a: 0.39607844}
       minSize: 0
       maxSize: 1
       pointInternal: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
       pathType: 0
   - name: Obstacle
     renderer:
-      color: {r: 1, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 0, b: 0, a: 0.39215687}
       minSize: 0
       maxSize: 1
       pointInternal: 1
