@@ -179,13 +179,13 @@ namespace Hex.Editor
 
             var gridData = _grid.Data;
             brush.renderer.ShowHex(worldPos.PixelToHex(gridData.size), gridPos, gridData.size, _grid.HexMat);
-            
-            Handles.Label(worldPos, worldPos.ToString());
+            UpdateSceneView();
             
             HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
 
             if (curEvent.type == EventType.MouseUp)
             {
+
                 var hex = worldPos.PixelToHex(gridData.size);
                 HexMetrics.AxialToOffset(hex.X, hex.Z, out int row, out int col);
                 gridData.RowColToIndex(row, col, out int rowIndex, out int colIndex);
@@ -195,6 +195,12 @@ namespace Hex.Editor
                     data.path.pathType = brush.path.pathType;
                 }
             }
+        }
+
+        private void UpdateSceneView()
+        {
+            // new Mesh也会触发
+            SceneView.lastActiveSceneView.Repaint();
         }
 
         private void ShowFeature()
