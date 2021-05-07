@@ -68,13 +68,17 @@ namespace Hex.Editor
                 EditorUIHelper.Space();
                 _brushType = EditorUIHelper.EnumPopup<BrushData.BrushType>(_brushType, "笔刷类型");
 
-                if (brushData.pathBrushes.Count > 0)
+                if (_brushType != BrushData.BrushType.None)
                 {
-                    _curBrush = EditorUIHelper.Popup("刷路", _curBrush,
-                        brushData.pathBrushes.Select(brush => brush.name).ToArray());
-                }
+                    if (brushData.pathBrushes.Count > 0)
+                    {
+                        _curBrush = EditorUIHelper.Popup("刷路", _curBrush,
+                            brushData.pathBrushes.Select(brush => brush.name).ToArray());
+                    }
 
-                _brushFeature.brushOptionType = EditorUIHelper.EnumPopup<BrushFeature.BrushOptionType>(_brushFeature.brushOptionType);
+                    _brushFeature.brushOptionType = EditorUIHelper.EnumPopup<BrushFeature.BrushOptionType>(_brushFeature.brushOptionType);
+                    _brushFeature.brushRange = EditorUIHelper.IntSlider("笔刷大小", _brushFeature.brushRange, 0, 10);
+                }
             }
 
             if (EditorUIHelper.Changed)
@@ -204,7 +208,11 @@ namespace Hex.Editor
             HexPoint worldPos = GetMouseWorldPosition(curEvent.mousePosition, _grid.transform);
 
             var gridData = _grid.Data;
-            brush.renderer.ShowHex(worldPos.PixelToHex(gridData.size), gridPos, gridData.size, _grid.HexMat);
+            var centerHex = worldPos.PixelToHex(gridData.size);
+            foreach (var hex in centerHex.Ranges(_brushFeature.brushRange))
+            {
+                brush.renderer.ShowHex(hex, gridPos, gridData.size, _grid.HexMat);
+            }
             UpdateSceneView();
             
             // HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
@@ -234,31 +242,32 @@ namespace Hex.Editor
                     }
                     case BrushFeature.BrushOptionType.Add:
                     {
-                        var hex = worldPos.PixelToHex(gridData.size);
-                        HexMetrics.AxialToOffset(hex.X, hex.Z, out int row, out int col);
-                        gridData.RowColToIndex(row, col, out int rowIndex, out int colIndex);
-                        var data = gridData[rowIndex, colIndex];
-                        if (data != null)
+                        foreach (var hex in centerHex.Ranges(_brushFeature.brushRange))
                         {
-                            if (data.path != brush.path)
+                            var data = GetHexDataByHex(hex);
+                            if (data != null)
                             {
-                                data.path = brush.path;
+                                if (data.path != brush.path)
+                                {
+                                    data.path = brush.path;
+                                }
                             }
+
                         }
 
                         break;
                     }
                     case BrushFeature.BrushOptionType.Minus:
                     {
-                        var hex = worldPos.PixelToHex(gridData.size);
-                        HexMetrics.AxialToOffset(hex.X, hex.Z, out int row, out int col);
-                        gridData.RowColToIndex(row, col, out int rowIndex, out int colIndex);
-                        var data = gridData[rowIndex, colIndex];
-                        if (data != null)
+                        foreach (var hex in centerHex.Ranges(_brushFeature.brushRange))
                         {
-                            if (data.path == brush.path)
+                            var data = GetHexDataByHex(hex);
+                            if (data != null)
                             {
-                                data.path = null;
+                                if (data.path == brush.path)
+                                {
+                                    data.path = null;
+                                }
                             }
                         }
 
@@ -269,6 +278,13 @@ namespace Hex.Editor
 
             HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
             // GUIUtility.hotControl = GUIUtility.GetControlID(FocusType.Passive);
+        }
+
+        private HexData GetHexDataByHex(HexCoordinates hex)
+        {
+            HexMetrics.AxialToOffset(hex.X, hex.Z, out int row, out int col);
+            _grid.Data.RowColToIndex(row, col, out int rowIndex, out int colIndex);
+            return _grid.Data[rowIndex, colIndex];
         }
 
         private void UpdateSceneView()

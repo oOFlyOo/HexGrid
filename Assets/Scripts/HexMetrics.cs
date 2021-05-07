@@ -216,5 +216,18 @@ namespace Hex
                 yield return hex.Corner(size, corner);
             }
         }
+
+        public static IEnumerable<HexCoordinates> Ranges(this HexCoordinates hex, int range)
+        {
+            for (int x = -range; x <= range; x++)
+            {
+                var min = Mathf.Max(-range, -x - range);
+                var max = Mathf.Min(range, -x + range);
+                for (int z = min; z <= max; z++)
+                {
+                    yield return hex + new HexCoordinates(x, z);
+                }
+            }
+        }
     }
 }

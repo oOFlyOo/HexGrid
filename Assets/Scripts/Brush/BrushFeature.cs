@@ -14,5 +14,6 @@ namespace Hex.Brush
         }
 
         public BrushOptionType brushOptionType = BrushOptionType.None;
+        public int brushRange = 0;
     }
 }
