@@ -90,7 +90,7 @@ namespace Hex.Editor
 
         private void LoadMaterial()
         {
-            _grid.HexMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/HexRenderer.mat");
+            _grid.HexMat = AssetDatabase.LoadAssetAtPath<Material>(HexGridEditorRes.RendererMaterial);
         }
 
         private void CreateHexGridData()
@@ -144,7 +144,7 @@ namespace Hex.Editor
             {
                 data = CreateInstance<BrushData>();
 
-                var preset = AssetDatabase.LoadAssetAtPath<Preset>("Assets/Presets/BrushData.preset");
+                var preset = AssetDatabase.LoadAssetAtPath<Preset>(HexGridEditorRes.BrushPreset);
                 if (preset != null)
                 {
                     preset.ApplyTo(data);
@@ -211,17 +211,59 @@ namespace Hex.Editor
 
             if (curEvent.type == EventType.MouseUp)
             {
-                var hex = worldPos.PixelToHex(gridData.size);
-                HexMetrics.AxialToOffset(hex.X, hex.Z, out int row, out int col);
-                gridData.RowColToIndex(row, col, out int rowIndex, out int colIndex);
-                var data = gridData[rowIndex, colIndex];
-                if (data != null)
+                switch (_brushFeature.brushOptionType)
                 {
-                    if (data.path != brush.path)
+                    case BrushFeature.BrushOptionType.None:
                     {
-                        data.path = brush.path;
+                        foreach (var hexData in _grid.Data.hexDatas)
+                        {
+                            if (hexData.path == brush.path)
+                            {
+                                hexData.path = null;
+                            }
+                        }
+                        break;
                     }
-                    // curEvent.Use();
+                    case BrushFeature.BrushOptionType.All:
+                    {
+                        foreach (var hexData in _grid.Data.hexDatas)
+                        {
+                            hexData.path = brush.path;
+                        }
+                        break;
+                    }
+                    case BrushFeature.BrushOptionType.Add:
+                    {
+                        var hex = worldPos.PixelToHex(gridData.size);
+                        HexMetrics.AxialToOffset(hex.X, hex.Z, out int row, out int col);
+                        gridData.RowColToIndex(row, col, out int rowIndex, out int colIndex);
+                        var data = gridData[rowIndex, colIndex];
+                        if (data != null)
+                        {
+                            if (data.path != brush.path)
+                            {
+                                data.path = brush.path;
+                            }
+                        }
+
+                        break;
+                    }
+                    case BrushFeature.BrushOptionType.Minus:
+                    {
+                        var hex = worldPos.PixelToHex(gridData.size);
+                        HexMetrics.AxialToOffset(hex.X, hex.Z, out int row, out int col);
+                        gridData.RowColToIndex(row, col, out int rowIndex, out int colIndex);
+                        var data = gridData[rowIndex, colIndex];
+                        if (data != null)
+                        {
+                            if (data.path == brush.path)
+                            {
+                                data.path = null;
+                            }
+                        }
+
+                        break;
+                    }
                 }
             }
 

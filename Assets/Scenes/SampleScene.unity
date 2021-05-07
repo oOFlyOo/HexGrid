@@ -327,7 +327,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowScope: 1
   ShowGrid: 1
-  LockSelection: 0
   HexMat: {fileID: 2100000, guid: 20c2b97a68649dd4d9e1b2050bdf1611, type: 2}
   BorderColor: {r: 0, g: 1, b: 0, a: 1}
   Renderer:
